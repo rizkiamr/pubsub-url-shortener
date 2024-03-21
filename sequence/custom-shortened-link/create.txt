@@ -1,0 +1,20 @@
+# paste this on https://sequencediagram.org
+title Create Custom Shortened Link
+
+User->Control Panel Service: User check custom shortened link
+Control Panel Service->Control Panel Service: Validate request
+Control Panel Service->Redirect Service: Check if custom shortened link is available
+Redirect Service->Control Panel Service: Custom shortened link is available
+Control Panel Service->User: Custom shortened link is available
+User->Control Panel Service: User submit shortened link
+Control Panel Service->Control Panel Service: Validate request
+Control Panel Service->Redirect Service: Check if custom shortened link is available
+Redirect Service->Control Panel Service: Custom shortened link is available
+Control Panel Service->Message Broker: Publish new custom shortened link
+Message Broker->Redirect Service: Distribute the custom shortened link, store in Redirect Service local cache lookup
+Message Broker->DB Ingestor Service: Distribute the custom shortened link, persist in database
+DB Ingestor Service->Main Database: Persist the custom shortened link
+Main Database->DB Ingestor Service: Custom shortened link has been persisted
+Control Panel Service->Redirect Service: Check if the custom shortened link is ready
+Redirect Service->Control Panel Service: Custom shortened link is ready
+Control Panel Service->User: Custom shortened link is created
